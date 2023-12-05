@@ -1,0 +1,61 @@
+﻿@page "/interactive-register"
+
+@rendermode InteractiveServer
+
+@inject NavigationManager navigationManager
+@using FormUser = TelerikSSR.Models.User;
+
+<TelerikRootComponent>
+    <TelerikWindow Modal="true" Centered="true" Width="400px" Height="400px" Visible="true">
+        <WindowContent>
+
+            <TelerikForm EditContext="@UserEditContext" OnSubmit="@OnRegisterFormSubmit">
+                <FormValidation>
+                    <DataAnnotationsValidator />
+                </FormValidation>
+                <FormItems>
+                    <FormItem Field="@nameof(FormUser.Name)" LabelText="Full Name" Hint="Enter your full name..."></FormItem>
+                    <FormItem Field="@nameof(FormUser.Email)" LabelText="Email" Hint="Enter your email..."></FormItem>
+                    <FormItem>
+                        <Template>
+                            <label for="password">Password:</label>
+                            <TelerikTextBox Password="true" @bind-Value="@FormUser.Password" Id="password"></TelerikTextBox>
+                            <TelerikValidationMessage For="@(() => FormUser.Password)" />
+                        </Template>
+                    </FormItem>
+                    <FormItem>
+                        <Template>
+                            <label for="password">Confirm Password:</label>
+                            <TelerikTextBox Password="true" @bind-Value="@FormUser.ConfirmPassword" Id="password"></TelerikTextBox>
+                            <TelerikValidationMessage For="@(() => FormUser.ConfirmPassword)" />
+                        </Template>
+                    </FormItem>
+                </FormItems>
+            </TelerikForm>
+
+        </WindowContent>
+    </TelerikWindow>
+</TelerikRootComponent>
+
+
+
+@code {
+    private void OnRegisterFormSubmit(EditContext editContext)
+    {
+        bool isValidRegistration = editContext.Validate();
+
+        if (isValidRegistration)
+        {
+            navigationManager.NavigateTo("/");
+        }
+    }
+
+    private EditContext UserEditContext { get; set; }
+    private FormUser FormUser { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserEditContext = new EditContext(FormUser);
+        await base.OnInitializedAsync();
+    }
+}

@@ -1,0 +1,54 @@
+﻿@inject NavigationManager navigationManager
+
+<TelerikAppBar>
+    <AppBarSection>
+        <span>Company Logo</span>
+    </AppBarSection>
+
+    <AppBarSpacer></AppBarSpacer>
+
+    <AppBarSection>
+        <TelerikButton OnClick="@NavigateToCounter" FillMode="flat">SSR Grid</TelerikButton>
+    </AppBarSection>
+
+    <AppBarSeparator></AppBarSeparator>
+
+    <AppBarSection>
+        <TelerikButton OnClick="@NavigateToStaticPageInteractiveGrid" FillMode="flat">SSR with Interactive Grid</TelerikButton>
+    </AppBarSection>
+
+    <AppBarSeparator></AppBarSeparator>
+
+    <AppBarSection>
+        <TelerikButton OnClick="@NavigateToDocumentation" FillMode="flat">Telerik Blazor Documentation</TelerikButton>
+    </AppBarSection>
+
+    <AppBarSpacer></AppBarSpacer>
+
+    <AppBarSection>
+        <TelerikSvgIcon Icon="@SvgIcon.User"></TelerikSvgIcon>
+    </AppBarSection>
+
+    <AppBarSeparator></AppBarSeparator>
+
+    <AppBarSection>
+        <TelerikSvgIcon Icon="@SvgIcon.Logout"></TelerikSvgIcon>
+    </AppBarSection>
+</TelerikAppBar>
+
+@code {
+    private void NavigateToCounter()
+    {
+        navigationManager.NavigateTo("/ssrgrid");
+    }
+
+    private void NavigateToStaticPageInteractiveGrid()
+    {
+        navigationManager.NavigateTo("/static-page-interactive-grid");
+    }
+
+    private void NavigateToDocumentation()
+    {
+        navigationManager.NavigateTo("https://docs.telerik.com/blazor-ui/introduction");
+    }
+}

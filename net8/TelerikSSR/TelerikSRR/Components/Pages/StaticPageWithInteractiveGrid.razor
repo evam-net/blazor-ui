@@ -1,0 +1,46 @@
+﻿@page "/static-page-interactive-grid"
+
+<div class="row">
+    <div class="col-6">
+        <h3>Interactive Grid</h3>
+        <InteractiveGridWrapper DataSource="@GridData"
+                                IsGridPageable="true"
+                                IsGridSortable="true"
+                                GridFilterMode="@GridFilterMode.FilterRow">
+        </InteractiveGridWrapper>
+    </div>
+    <div class="col-3">
+        <h3>Static Content</h3>
+        <span>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac quam non tortor fringilla ultrices. Nullam vitae mauris vel tortor mollis accumsan. Vivamus vel augue ut odio posuere mattis. Quisque vitae nulla nec odio dapibus suscipit. Integer in mauris ut dolor imperdiet venenatis. Fusce vel turpis eu justo cursus gravida. In hac habitasse platea dictumst. Suspendisse potenti. Sed sit amet quam ac mi ultrices gravida. Phasellus eu justo a massa congue suscipit.
+
+            Donec tincidunt, dolor nec fringilla tempor, purus metus facilisis orci, vel convallis arcu ligula ut erat. Proin id nibh nec ipsum bibendum dignissim. Quisque tristique est eu odio tincidunt, in auctor enim tincidunt. Nulla facilisi. Aliquam erat volutpat. Nullam vel nunc nec enim hendrerit euismod. In hac habitasse platea dictumst. Integer fermentum massa vel velit tristique, ut ultricies turpis tincidunt. Aenean nec tortor a leo congue bibendum. Sed eleifend, mauris nec tincidunt rhoncus, neque felis fringilla ligula, ut hendrerit elit risus nec purus.
+        </span>
+    </div>
+</div>
+
+@code {
+    private List<Product> GridData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GridData = new List<Product>();
+
+        var rnd = new Random();
+
+        for (int i = 1; i <= 30; i++)
+        {
+            GridData.Add(new Product
+                {
+                    Id = i,
+                    Name = "Product name " + i,
+                    Price = (decimal)(rnd.Next(1, 50) * 3.14),
+                    Released = DateTime.Now.AddDays(-rnd.Next(1, 365)).AddYears(-rnd.Next(1, 10)).Date,
+                    Discontinued = i % 5 == 0
+                });
+
+        }
+
+        base.OnInitialized();
+    }
+}

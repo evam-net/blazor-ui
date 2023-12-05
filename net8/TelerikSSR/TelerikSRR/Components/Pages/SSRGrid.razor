@@ -1,0 +1,52 @@
+﻿@page "/ssrgrid"
+
+This page showcases:
+<ul>
+    <li>The Grid rendering speed in Static Server Rendering.</li>
+    <li>The Grid component has 10000 rows and 4 columns.</li>
+    <li>The Grid component is not interactive (filtering, sorting, grouping, and events are not possible).</li>
+</ul>
+
+<TelerikGrid Data="@GridData">
+    <GridColumns>
+        <GridColumn Field="Name" Title="Product Name" />
+        <GridColumn Field="Price" DisplayFormat="{0:C2}" />
+        <GridColumn Field="@nameof(Product.Released)" DisplayFormat="{0:D}" />
+        <GridColumn Field="@nameof(Product.Discontinued)" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    private List<Product> GridData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GridData = new List<Product>();
+
+        var rnd = new Random();
+
+        for (int i = 1; i <= 10000; i++)
+        {
+            GridData.Add(new Product
+                {
+                    Id = i,
+                    Name = "Product name " + i,
+                    Price = (decimal)(rnd.Next(1, 50) * 3.14),
+                    Released = DateTime.Now.AddDays(-rnd.Next(1, 365)).AddYears(-rnd.Next(1, 10)).Date,
+                    Discontinued = i % 5 == 0
+                });
+
+        }
+
+        base.OnInitialized();
+    }
+
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public DateTime Released { get; set; }
+        public bool Discontinued { get; set; }
+    }
+}

@@ -1,0 +1,21 @@
+﻿@rendermode InteractiveServer
+
+<TelerikRootComponent>
+    <TelerikGrid Data="@DataSource"
+                 Pageable="@IsGridPageable"
+                 Sortable="@IsGridSortable"
+                 FilterMode="@GridFilterMode"
+                 AutoGenerateColumns="true">
+    </TelerikGrid>
+</TelerikRootComponent>
+
+@code {
+    [Parameter]
+    public List<Product> DataSource { get; set; }
+    [Parameter]
+    public bool IsGridPageable { get; set; }
+    [Parameter]
+    public bool IsGridSortable { get; set; }
+    [Parameter]
+    public GridFilterMode GridFilterMode { get; set; }
+}
