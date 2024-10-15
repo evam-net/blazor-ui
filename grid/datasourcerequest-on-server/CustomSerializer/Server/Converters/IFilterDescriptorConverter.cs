@@ -21,7 +21,7 @@ namespace CustomSerializer.Server.JsonConverters
         {
             JObject filterDescriptor = JObject.Load(reader);
 
-            if (filterDescriptor.ContainsKey("logicalOperator"))
+            if (filterDescriptor.ContainsKey("LogicalOperator"))
             {
                 return filterDescriptor.ToObject<CompositeFilterDescriptor>(serializer);
             }
